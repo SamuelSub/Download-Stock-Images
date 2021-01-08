@@ -4,12 +4,29 @@ import Navbar from './components/layout/Navbar';
 import Users from './components/layout/users/Users';
 
 class App extends Component {
+  state = {
+    users: [],
+    loading: false
+  };
+  
+  componentDidMount() {
+    
+    this.setState({ loading: true });
+
+    fetch('https://api.github.com/users')
+      .then(res => res.json())
+      .then(data => {this.setState( { users: data } )})
+      .catch(err => console.log(err));
+
+    this.setState({ loading: false });
+  }
+
   render() {
     return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Users />
+          <Users loading={this.state.loading} users={this.state.users}/>
         </div>
       </div>
     );
