@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Users from './components/layout/users/Users';
@@ -9,75 +9,81 @@ import User from './components/layout/users/User';
 import './App.css';
 
 
-class App extends Component {
-  state = {
-    users: [],
-    user: {},
-    repos: [],
-    loading: false,
-    alert: null
-  };
-  
-  searchUsers = (text) => {
+const App = () => {
 
-    this.setState( { loading: true } );
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlertType] = useState(null);
+  
+  const searchUsers = (text) => {
+
+    setLoading(true);
 
     fetch(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       .then(res => res.json())
-      .then(data => {this.setState( { users: data.items, loading: false } )})
+      .then(data => { 
+        setUsers(data.items); 
+        setLoading(false);
+      })
       .catch(err => console.log(err));
   }
 
   // Search single user
 
-  getUser = (username) => {
+  const getUser = (username) => {
 
-    this.setState( { loading: true} );
+    setLoading(true);
 
     fetch(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       .then(res => res.json())
-      .then(data => this.setState( { user: data, loading: false } ))
+      .then(data => { 
+        setUser(data); 
+        setLoading(false);
+      })
       .catch(err => console.log(err));
   }
   // Get User Repos
 
-  getUserRepos = (username) => {
-    this.setState( { loading: true} );
+  const getUserRepos = (username) => {
+    setLoading(true);
 
     fetch(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       .then(res => res.json())
-      .then(data => this.setState( { repos: data, loading: false } ))
+      .then(data => { 
+        setRepos(data);
+        setLoading(false);
+      })
       .catch(err => console.log(err));
   }  
 
-  clearUsers = () => {
-    if(this.state.users.length !== 0) {
-      this.setState( { users: [], loading: false } );
+  const clearUsers = () => {
+    if(users.length !== 0) {
+      setUsers([]); 
+      setLoading(false);
     }
   }
 
-  setAlert = (message, type) => {
-    this.setState( { alert: { message: message, type: type } } );
+  const setAlert = (message, type) => {
+    setAlertType( { message: message, type: type } );
     setTimeout(() => {
-      this.setState( { alert: null } )
+      setAlertType(null);
     }, 3000);
   }
 
-  render() {
-
-    const { users, user, loading, repos } = this.state;
 
     return (
       <Router>
         <div className="App">
           <Navbar />
           <div className="container">
-            <Alert alert={this.state.alert}/>
+            <Alert alert={alert}/>
 
             <Switch>
               <Route exact path='/' render={props => (
                 <Fragment>
-                   <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} showClear={users.length > 0 ? true : false} setAlert={this.setAlert}/>
+                   <Search searchUsers={searchUsers} clearUsers={clearUsers} showClear={users.length > 0 ? true : false} setAlert={setAlert}/>
                    <Users loading={loading} users={users}/>
                 </Fragment>
               )}/> 
@@ -85,10 +91,8 @@ class App extends Component {
               <Route exact path='/about' component={About}/>
 
               <Route exact path='/user/:login' render={props => (
-                <User { ...props } getUser={this.getUser} getUserRepos={this.getUserRepos} repos={repos} user={user} loading={loading}/>
+                <User { ...props } getUser={getUser} getUserRepos={getUserRepos} repos={repos} user={user} loading={loading}/>
               )}/>
-
-              
               
             </Switch>
            
@@ -96,7 +100,6 @@ class App extends Component {
         </div>
       </Router>
     );
-  }
 }
 
 export default App;

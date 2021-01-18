@@ -11,7 +11,6 @@ const Users = ({ users, loading }) => {
   }
 
   if(loading) {
-    console.log('test')
     return (
       <div>
         <Spinner />
