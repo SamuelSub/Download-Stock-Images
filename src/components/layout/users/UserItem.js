@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Using destructuring to pull from props the user (props.user.login and so on...)
-const UserItem = ( { user: { login, avatar_url, html_url } } ) => {
+const UserItem = ( { user: { login, avatar_url } } ) => {
+  
 
     return (
       <div className="card text-center">
@@ -15,10 +15,6 @@ const UserItem = ( { user: { login, avatar_url, html_url } } ) => {
         </h4>
       </div>
     )
-}
-
-UserItem.propTypes = {
-  user: PropTypes.object.isRequired
 }
 
 export default UserItem
