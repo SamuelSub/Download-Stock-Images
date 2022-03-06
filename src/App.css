@@ -28,9 +28,9 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+/* a:hover {
   color: #666;
-}
+} */
 
 ul {
   list-style: none;
@@ -111,9 +111,65 @@ img {
 
 /* Cards */
 .card {
-  padding: 1rem;
-  border: #ccc 1px dotted;
-  margin: 0.7rem 0;
+  position: relative;
+  margin: 1rem;
+}
+
+.images-wrapper {
+  column-count: 3;
+  margin-top: 2rem;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+}
+
+/* .card img:hover {
+  opacity: 0.8;
+} */
+
+.image-overlay {
+  position: absolute;
+  content: '';
+  opacity: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 0;
+  /* transition: all 0.3 ease-in-out; */
+}
+
+.image-overlay:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.images-wrapper .card {
+  margin-top: 0;
+}
+
+.download-btn {
+  border: none;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.4rem 3rem;
+}
+
+.download-btn:hover {
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  transition: all 0.3s ease-in-out;
 }
 
 /* List */
@@ -294,9 +350,9 @@ img {
   border: #ccc solid 1px;
 }
 
-.btn:hover {
+/* .btn:hover {
   opacity: 0.8;
-}
+} */
 
 .bg-light,
 .badge-light {

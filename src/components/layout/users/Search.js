@@ -7,7 +7,7 @@ const Search = () => {
   const githubContext = useContext(GithubContext);
   const alertContext = useContext(AlertContext);
 
-  const { clearUsers, searchUsers, users, getUser } = githubContext;
+  const { clearUsers, searchUsers, users } = githubContext;
   const { setAlert } = alertContext;
 
   const [text, setText] = useState('');
@@ -22,7 +22,6 @@ const Search = () => {
       setAlert('Please Enter Something...', 'light');
     } else {
       searchUsers(text);
-      getUser(text);
       setText('');
     } 
   }
@@ -30,7 +29,7 @@ const Search = () => {
     return (
       <div>
         <form onSubmit={onSubmit} className="form">
-          <input type="text" name="text" placeholder="Search Users..." value={text} onChange={onChange}/>
+          <input type="text" name="text" placeholder="Search Images..." value={text} onChange={onChange}/>
           <input type="submit" value="Search" className="btn btn-dark btn-block"/>
         </form>
         {users.length > 0 && <button className="btn btn-light btn-block" onClick={clearUsers}>

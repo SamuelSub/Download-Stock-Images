@@ -9,13 +9,6 @@ const Users = () => {
 
   const { users, loading } = githubContext;
 
-  const userStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridGap: '1rem'
-  }
-
-
   if(loading) {
     return (
       <div>
@@ -24,7 +17,7 @@ const Users = () => {
     ) 
   } else {
     return (
-      <div style={userStyle}>
+      <div className='images-wrapper'>
         {users.map(user => (
           <UserItem key={user.id} user={user}/>
         ))}

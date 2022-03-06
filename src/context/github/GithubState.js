@@ -11,13 +11,16 @@ import {
 
 let githubClientId;
 let githubClientSecret;
+let unsplashClientID;
 
 if(process.env.NODE_ENV !== 'production') {
   githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+  unsplashClientID = process.env.REACT_APP_ACCESS_KEY;
 } else {
   githubClientId = process.env.GITHUB_CLIENT_ID;
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+  unsplashClientID = process.env.ACCESS_KEY;
 }
 
 const GithubState = props => {
@@ -36,13 +39,19 @@ const GithubState = props => {
 
     setLoading();
 
-    const res = await fetch(`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`);
+    const findImages = await fetch(`https://api.unsplash.com/search/photos/?client_id=${unsplashClientID}&query=${text}&per_page=30`);
 
-    const data = await res.json();
+    const resImages = await findImages.json();
+
+    // console.log(resImages['results']);  
+
+    // const res = await fetch(`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`);
+
+    // const data = await res.json();
 
     displatch({
       type: SEARCH_USERS,
-      payload: data.items
+      payload: resImages['results']
     });
 
   }
@@ -53,13 +62,19 @@ const GithubState = props => {
 
     setLoading();
 
-    const res = await fetch(`https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`);
+    const findImage = await fetch(`https://api.unsplash.com/photos/${username}?client_id=${unsplashClientID}`);
 
-    const data = await res.json();
+    const resImage = await findImage.json();
+
+    // console.log(resImage)
+
+    // const res = await fetch(`https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`);
+
+    // const data = await res.json();
     
     displatch( {
       type: GET_USER,
-      payload: data
+      payload: resImage
     } );
     // console.log(username);
 

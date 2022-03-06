@@ -24,7 +24,7 @@ const App = () => {
                 <Switch>
                   <Route exact path='/' component={Home}/> 
                   <Route exact path='/about' component={About}/>
-                  <Route exact path='/user/:login' component={User}/>  
+                  <Route exact path='/user/' component={User}/>  
                   <Route component={NotFound}/>    
                 </Switch>
               
