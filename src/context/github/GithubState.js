@@ -39,7 +39,7 @@ const GithubState = props => {
 
     setLoading();
 
-    // test
+    // test 2
 
     const findImages = await fetch(`https://api.unsplash.com/search/photos/?client_id=${unsplashClientID}&query=${text}&per_page=30`);
 
