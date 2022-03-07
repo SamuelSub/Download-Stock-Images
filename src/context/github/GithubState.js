@@ -16,12 +16,16 @@ let unsplashClientID;
 if(process.env.NODE_ENV !== 'production') {
   githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
-  // unsplashClientID = process.env.REACT_APP_ACCESS_KEY;
-  unsplashClientID = process.env.ACCESS_KEY;
+  unsplashClientID = process.env.REACT_APP_ACCESS_KEY;
 } else {
   githubClientId = process.env.GITHUB_CLIENT_ID;
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
   unsplashClientID = process.env.ACCESS_KEY;
+}
+
+if(process.env.NODE_ENV === 'production') {
+  unsplashClientID = process.env.ACCESS_KEY;
+  console.log(true, unsplashClientID)
 }
 
 const GithubState = props => {
