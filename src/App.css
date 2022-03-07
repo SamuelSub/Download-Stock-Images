@@ -438,6 +438,10 @@ table th {
     display: none;
   }
 
+  .images-wrapper {
+    column-count: 2;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4 {
@@ -466,5 +470,11 @@ table th {
   .navbar ul {
     text-align: center;
     justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .images-wrapper {
+    column-count: 1;
   }
 }
