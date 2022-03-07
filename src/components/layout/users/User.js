@@ -10,7 +10,7 @@ const User = () => {
 
     if(loading) return <Spinner />
 
-    console.log(user.links)
+    // console.log(user.links)
 
     return (
       <Fragment>
