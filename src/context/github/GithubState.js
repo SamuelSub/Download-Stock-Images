@@ -9,6 +9,7 @@ import {
   GET_REPOS
 } from '../types';
 
+
 let githubClientId;
 let githubClientSecret;
 let unsplashClientID;
@@ -21,11 +22,6 @@ if(process.env.NODE_ENV !== 'production') {
   githubClientId = process.env.GITHUB_CLIENT_ID;
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
   unsplashClientID = process.env.ACCESS_KEY;
-}
-
-if(process.env.NODE_ENV === 'production') {
-  unsplashClientID = process.env.ACCESS_KEY;
-  console.log(true, unsplashClientID)
 }
 
 const GithubState = props => {
