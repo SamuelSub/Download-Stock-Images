@@ -21,7 +21,7 @@ if(process.env.NODE_ENV !== 'production') {
 } else {
   githubClientId = process.env.GITHUB_CLIENT_ID;
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
-  unsplashClientID = process.env.ACCESS_KEY;
+  unsplashClientID = process.env.REACT_APP_ACCESS_KEY;
 }
 
 const GithubState = props => {
